@@ -23,7 +23,8 @@
             <version>3.2.5</version>
         </dependency>
 
-        <!--        this is the dependency that wrap up rest assured with additional serenity support-->
+        <!--        this is the dependency that wrap up rest assured with additional serenity support
+        We will not add RestAssured separately. Since Serenity is a version of RestAssured, it already contains RestAssured-->
         <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-rest-assured -->
         <dependency>
             <groupId>net.serenity-bdd</groupId>
