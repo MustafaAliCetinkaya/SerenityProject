@@ -14,7 +14,6 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
 import static net.serenitybdd.rest.RestRequests.given;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 @Disabled
@@ -47,6 +46,7 @@ public class ConfigDemoTest {
                 .prettyPrint();
 
         Ensure.that("Status code is 201?", statusCodeVerification -> statusCodeVerification.statusCode(201));
+
         Ensure.that("Content type is JSON?", contentTypeVerification -> contentTypeVerification.contentType(ContentType.JSON));
 
         Ensure.that("Message is correct?",
@@ -58,7 +58,13 @@ public class ConfigDemoTest {
         Ensure.that("Body info is correct?",
                 bodyVerification -> bodyVerification.body("data.id", notNullValue()));
 
-        Ensure.that("Message is correct?",
+        Ensure.that("Body info is correct?",
                 bodyVerification -> bodyVerification.body("data.name", Matchers.is(randomSpartanBodyMap.get("name"))));
+
+        Ensure.that("Body info is correct?",
+                bodyVerification -> bodyVerification.body("data.gender", Matchers.is(randomSpartanBodyMap.get("gender"))));
+
+        Ensure.that("Body info is correct?",
+                bodyVerification -> bodyVerification.body("data.phone", Matchers.is(randomSpartanBodyMap.get("phone"))));
     }
 }
