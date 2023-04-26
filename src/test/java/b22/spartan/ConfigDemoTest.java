@@ -3,6 +3,7 @@ package b22.spartan;
 import io.restassured.http.ContentType;
 import net.serenitybdd.junit5.SerenityTest;
 import net.serenitybdd.rest.Ensure;
+import net.serenitybdd.rest.SerenityRest;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -13,7 +14,8 @@ import utilities.SpartanUtil;
 import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
-import static net.serenitybdd.rest.RestRequests.given;
+import static io.restassured.RestAssured.given;
+import static net.serenitybdd.rest.SerenityRest.lastResponse;
 import static org.hamcrest.Matchers.notNullValue;
 
 @Disabled
@@ -66,5 +68,6 @@ public class ConfigDemoTest {
 
         Ensure.that("Body info is correct?",
                 bodyVerification -> bodyVerification.body("data.phone", Matchers.is(randomSpartanBodyMap.get("phone"))));
+
     }
 }
