@@ -8,6 +8,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import utilities.ConfigReader;
 import utilities.SpartanUtil;
 
@@ -69,5 +71,13 @@ public class ConfigDemoTest {
         Ensure.that("Body info is correct?",
                 bodyVerification -> bodyVerification.body("data.phone", Matchers.is(randomSpartanBodyMap.get("phone"))));
 
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/SpartanData.csv",numLinesToSkip = 1)
+    public void postSpartanWithCSV(String name, String gender, long phone){
+        System.out.println("name = " + name);
+        System.out.println("gender = " + gender);
+        System.out.println("phone = " + phone);
     }
 }
