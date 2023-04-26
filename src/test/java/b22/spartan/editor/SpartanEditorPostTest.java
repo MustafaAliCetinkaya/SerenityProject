@@ -1,5 +1,7 @@
 package b22.spartan.editor;
 
+import io.restassured.RestAssured;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -159,5 +161,52 @@ public class SpartanEditorPostTest extends SpartanNewBase {
             );
 
         }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/SpartanData.csv",numLinesToSkip = 1)
+    public void postSpartanWithCSV2(String name, String gender, long phone){
+        System.out.println("name = " + name);
+        System.out.println("gender = " + gender);
+        System.out.println("phone = " + phone);
+
+
+        Map<String, Object> randomSpartanBodyMap = SpartanUtil.getRandomSpartanMap();
+        System.out.println("Randomly created new Spartan" + randomSpartanBodyMap);
+
+
+        //send a post request as editor. Not a part of ConfigDemoTest.
+        RestAssured.given()
+                .auth().basic("editor", "editor")
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .body(randomSpartanBodyMap)
+                .log().body()
+
+                .when()
+                .post("/api/spartans")
+                .prettyPrint();
+
+        Ensure.that("Status code is 201?", statusCodeVerification -> statusCodeVerification.statusCode(201));
+
+        Ensure.that("Content type is JSON?", contentTypeVerification -> contentTypeVerification.contentType(ContentType.JSON));
+
+        Ensure.that("Message is correct?",
+                messageVerification -> messageVerification.body("success", notNullValue()));
+
+        Ensure.that("Message is correct?",
+                messageVerification -> messageVerification.body("success", Matchers.is("A Spartan is Born!")));
+
+        Ensure.that("Body info is correct?",
+                bodyVerification -> bodyVerification.body("data.id", notNullValue()));
+
+        Ensure.that("Body info is correct?",
+                bodyVerification -> bodyVerification.body("data.name", Matchers.is(randomSpartanBodyMap.get("name"))));
+
+        Ensure.that("Body info is correct?",
+                bodyVerification -> bodyVerification.body("data.gender", Matchers.is(randomSpartanBodyMap.get("gender"))));
+
+        Ensure.that("Body info is correct?",
+                bodyVerification -> bodyVerification.body("data.phone", Matchers.is(randomSpartanBodyMap.get("phone"))));
+    }
 
 }
