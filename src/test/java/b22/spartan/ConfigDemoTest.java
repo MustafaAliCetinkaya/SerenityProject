@@ -29,13 +29,14 @@ public class ConfigDemoTest {
 
     @Test
     public void test1() {
+        //This part is ConfigDemoTest
         System.out.println(ConfigReader.getProperty("serenity.project.name"));
         System.out.println(ConfigReader.getProperty("spartan.editor.username"));
 
         Map<String, Object> randomSpartanBodyMap = SpartanUtil.getRandomSpartanMap();
         System.out.println("Randomly created new Spartan" + randomSpartanBodyMap);
 
-        //send a post request as editor
+        //send a post request as editor. Not a part of ConfigDemoTest.
         given()
                 .auth().basic("editor", "editor")
                 .accept(ContentType.JSON)
