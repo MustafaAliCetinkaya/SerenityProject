@@ -3,7 +3,6 @@ package b22.spartan;
 import io.restassured.http.ContentType;
 import net.serenitybdd.junit5.SerenityTest;
 import net.serenitybdd.rest.Ensure;
-import net.serenitybdd.rest.SerenityRest;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static net.serenitybdd.rest.SerenityRest.lastResponse;
 import static org.hamcrest.Matchers.notNullValue;
 
 @Disabled
